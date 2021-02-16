@@ -23,10 +23,10 @@ export default {
     },
     methods: {
         removeTodo: function(todoItem, index) {
-            localStorage.removeItem(todoItem);
+            localStorage.removeItem(todoItem.item);
             this.todoItems.splice(index, 1);
         },
-        toggleComplete: function(todoItem,index) {
+        toggleComplete: function(todoItem) {
             todoItem.completed = !todoItem.completed;
             //localStorage에 updateItem 메서드가 없어서 removeItem하고 setItem 한다.
             localStorage.removeItem(todoItem.item);
@@ -38,11 +38,11 @@ export default {
         if(localStorage.length > 0){
             for(var i=0; i < localStorage.length; i++) {
                 if(localStorage.key(i) !== 'loglevel:webpack-dev-server'){
-                    console.log(typeof localStorage.getItem(localStorage.key(i)));
-                    console.log( JSON.parse(localStorage.getItem(localStorage.key(i))) );
+                    //console.log(typeof localStorage.getItem(localStorage.key(i)));
+                    //console.log( JSON.parse(localStorage.getItem(localStorage.key(i))) );
                     //JSON.parse()는 json string을 object로 변환
-                    //this.todoItems.push(localStorage.key(i));
-                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+                    const todoObj = JSON.parse(localStorage.getItem(localStorage.key(i)));
+                    this.todoItems.push(todoObj);
                 }
             }
         }

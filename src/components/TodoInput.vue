@@ -1,6 +1,6 @@
 <template>
     <div class="inputBox shadow">
-        <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+        <input type="text" ref="newTodoItem" v-model="newTodoItem" v-on:keyup.enter="addTodo">
         <span class="addContainer" v-on:click="addTodo">
             <i class="fas fa-plus addBtn"></i>
         </span>
@@ -15,10 +15,14 @@ export default {
             newTodoItem: ""
         }
     },
+    mounted() {
+      this.$refs.newTodoItem.focus();
+    },
     methods:{
         addTodo:function() {
             if (this.newTodoItem !== '') {
                 var obj = {completed: false, item:this.newTodoItem};
+                console.log(obj);
                 //JSON.stringify는 object를 json string 으로 변환
                 localStorage.setItem(this.newTodoItem,JSON.stringify(obj));
                 this.clearInput();
@@ -28,7 +32,7 @@ export default {
             }
         },
         clearInput:function() {
-            //addTodo() 함수에 있었지만 clearInput()함수로 이동
+            //addTodo() 함수에 있었지만 clearInput()함수로 이동            
             this.newTodoItem = '';
         }
     }
@@ -43,7 +47,7 @@ input:focus {
   background: white;
   height: 50px;
   line-height: 50px;
-  border-radius: 5px;
+  border-radius: 15px;
 }
 .inputBox input {
   border-style: none;
